@@ -65,7 +65,7 @@ namespace KartSimulator.Infrastructure
 
         private static int FindNextLetterOrNumber(int counter, string line)
         {
-            while (line[counter] == ' ' || counter == 22 || line[counter] == '\t')
+            while (!char.IsLetterOrDigit(line[counter]))
             {
                 counter++;
             }
