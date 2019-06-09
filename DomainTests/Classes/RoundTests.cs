@@ -28,8 +28,8 @@ namespace DomainTests.Classes
             round.Hour.Should().Be(Convert.ToDateTime("12:01:12"));
             round.Driver.DriverId.Should().Be(1);
             round.Driver.Name.Should().Be("test");
-            round.RoundCount.Should().Be(1);
-            round.RoundTime.Should().Be(TimeSpan.ParseExact("1:11.111", "m\\:ss\\.fff", null));
+            round.LapCount.Should().Be(1);
+            round.LapTime.Should().Be(TimeSpan.ParseExact("1:11.111", "m\\:ss\\.fff", null));
             round.AverageSpeed.Should().Be(1);
         }
     }

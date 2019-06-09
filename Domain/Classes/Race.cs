@@ -17,7 +17,7 @@ namespace Domain.Classes
         //challenge
         public Lap GetBestLap()
         {
-            return Laps.FirstOrDefault(x => x.RoundTime == Laps.Min(y => y.RoundTime));
+            return Laps.FirstOrDefault(x => x.LapTime == Laps.Min(y => y.LapTime));
         }
 
         public List<Lap> GetBestLapFromEachDriver()
@@ -27,7 +27,7 @@ namespace Domain.Classes
             foreach (var driver in query)
             {
                 var driverLaps = Laps.Where(x => x.Driver.DriverId == driver.Driver.DriverId);
-                var fasterLap = driverLaps.Where(x => x.RoundTime == driverLaps.Min(y => y.RoundTime));
+                var fasterLap = driverLaps.Where(x => x.LapTime == driverLaps.Min(y => y.LapTime));
                 result.Add(fasterLap.FirstOrDefault());
             }
 

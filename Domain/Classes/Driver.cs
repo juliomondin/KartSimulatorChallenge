@@ -36,7 +36,7 @@ namespace Domain.Classes
         public Lap GetBestLap(Race race)
         {
             Laps = race.Laps.Where(x => x.Driver.DriverId == DriverId);
-            return Laps.FirstOrDefault(x => x.RoundTime == Laps.Min(y => y.RoundTime));
+            return Laps.FirstOrDefault(x => x.LapTime == Laps.Min(y => y.LapTime));
         }
     }
 }

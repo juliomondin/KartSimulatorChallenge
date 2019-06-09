@@ -16,18 +16,20 @@ namespace Domain.Classes
             if (driver == null) throw new ArgumentNullException(nameof(driver));
             if (roundCount == null) throw new ArgumentNullException(nameof(roundCount));
             if (roundTime == null) throw new ArgumentNullException(nameof(roundTime));
+            if (averageSpeed == null) throw new ArgumentNullException(nameof(averageSpeed));
+
 
             Hour = Convert.ToDateTime(hour);
-            RoundCount = int.Parse(roundCount);
-            RoundTime = TimeSpan.ParseExact(roundTime, "m\\:ss\\.fff", null);
-            AverageSpeed = decimal.Parse(averageSpeed);
+            LapCount = int.Parse(roundCount);
+            LapTime = TimeSpan.ParseExact(roundTime, "m\\:ss\\.fff", null);
+            AverageSpeed = decimal.Parse(averageSpeed.Replace(",", "."));
             Driver = new Driver(int.Parse(driverId), driver);
         }
         public DateTime Hour { get; private set; }
 
         public Driver Driver { get; set; }
-        public int RoundCount { get; private set; }
-        public TimeSpan RoundTime { get; private set; }
+        public int LapCount { get; private set; }
+        public TimeSpan LapTime { get; private set; }
         public decimal AverageSpeed { get; private set; }
     }
 }

@@ -22,12 +22,13 @@ namespace KartSimulator
             var service = serviceProvider.GetService<IRepository<Lap>>();
 
             var race = new Race(service.GetAll());
+            var result = new RaceResult(race);
 
             Console.WriteLine("To find the race final result, press 1");
             Console.WriteLine("To find who made the best race's lap, press 2");
             Console.WriteLine("To find the best lap from which driver, press 3");
             Console.WriteLine("To find each driver average speed, press 4");
-            Console.WriteLine("To find when each pilot arrived after the winner, press 5");
+            Console.WriteLine("To find when each driver arrived after the winner, press 5");
 
 
             var option = Console.ReadLine();
@@ -35,24 +36,35 @@ namespace KartSimulator
             switch (option)
             {
                 case "1":
-                    var result = new RaceResult(race);
-                    result.GetResult().ForEach(x => Console.WriteLine(
-                        $"Position: {x.FinalTime} / {x.Driver.DriverId} - {x.Driver.Name}   / Finished Laps: {x.NumberOfFinishedLaps}   /    Finished Time: {x.FinalTime}))"));
+
+                    result.GetResult();
+                    result.Result.ForEach(x => Console.WriteLine(
+                        $"Position: {x.ArrivingPosition} / {x.Driver.DriverId} - {x.Driver.Name}   / Finished Laps: {x.NumberOfCompletedLaps}   /    Finished Time: {x.FinalTime}))"));
+
+                    Console.WriteLine("============================================================================");
+                    Console.WriteLine("The following racers didn't completed the race: ");
+                    result.Leavers.ForEach(x => Console.WriteLine(
+                        $"{x.Driver.DriverId} - {x.Driver.Name}   / Finished Laps: {x.NumberOfCompletedLaps}   /    Finished Time: {x.FinalTime}))")); ;
                     break;
                 case "2":
                     var bestLap = race.GetBestLap();
                     Console.WriteLine(
-                        $"The best lap was made by {bestLap.Driver.Name} with the time of {bestLap.RoundTime}");
+                        $"The best lap was made by {bestLap.Driver.Name} with the time of {bestLap.LapTime}");
                     break;
                 case "3":
                     var bestLaps = race.GetBestLapFromEachDriver();
-                    bestLaps.ForEach(x => Console.WriteLine($"{x.Driver.Name} best time was {x.RoundTime}"));
+                    bestLaps.ForEach(x => Console.WriteLine($"{x.Driver.Name} best time was {x.LapTime}"));
                     break;
                 case "4":
+                    var averageSpeed = result.GetAverageSpeed();
+                    averageSpeed.ForEach(x => Console.WriteLine(
+                        $"{x.Driver.DriverId} - {x.Driver.Name}    Average Speed: {x.AverageSpeed} "));
                     break;
                 case "5":
                 default:
-                    Console.WriteLine("Come on!");
+                    Console.WriteLine("All the drivers that completed the race:");
+                    var completedAfterFirst = result.GetCompletedTimeAfterFirst();
+                    completedAfterFirst.ForEach(x => Console.WriteLine($"{x.Driver.Name} -  {x.CompletedAfterFirst}"));
                     break;
             }
 
