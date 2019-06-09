@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentAssertions;
+﻿using FluentAssertions;
 using KartSimulator.Infrastructure;
 using NSubstitute;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace KartSimulatorTests.Infrastructure
@@ -12,6 +11,7 @@ namespace KartSimulatorTests.Infrastructure
     public class ResultGeneratorTests
     {
         private IFileReader _fileReader;
+
         public ResultGeneratorTests()
         {
             _fileReader = NSubstitute.Substitute.For<IFileReader>();
@@ -22,6 +22,7 @@ namespace KartSimulatorTests.Infrastructure
         {
             Assert.Throws<ArgumentNullException>(() => new ResultGenerator(null));
         }
+
         [Fact]
         public void Constructor_When_Valid_Parameter()
         {
@@ -40,8 +41,8 @@ namespace KartSimulatorTests.Infrastructure
             var service = new ResultGenerator(_fileReader);
             //action
             var result = service.GetAllLaps();
-            result.First().Driver.Name.Should().Be("F.MASSA");
-            //assert 
+            result.First().Racer.Name.Should().Be("F.MASSA");
+            //assert
             result.Should().NotBeNull();
         }
 
@@ -54,10 +55,7 @@ namespace KartSimulatorTests.Infrastructure
             _fileReader.GetLines(Arg.Any<string>()).Returns(mock);
             var service = new ResultGenerator(_fileReader);
             var result = service.FindLap(38);
-            result.Driver.Name.Should().Be("F.MASSA");
+            result.Racer.Name.Should().Be("F.MASSA");
         }
-
-
-
     }
 }

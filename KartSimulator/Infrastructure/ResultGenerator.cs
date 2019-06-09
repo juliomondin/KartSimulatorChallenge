@@ -1,10 +1,13 @@
-﻿using System;
-using Domain.Classes;
+﻿using Domain.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace KartSimulator.Infrastructure
 {
+    /// <summary>
+    /// The class that receives a raw file content and transforms it into a list of laps.
+    /// </summary>
     public class ResultGenerator : IResultGenerator<Lap>
     {
         private readonly IFileReader _fileReader;
@@ -15,14 +18,23 @@ namespace KartSimulator.Infrastructure
             _fileReader = fileReader ?? throw new ArgumentNullException(nameof(fileReader));
         }
 
+        /// <summary>
+        /// Returns all laps.
+        /// </summary>
+        /// <returns></returns>
         public List<Lap> GetAllLaps()
         {
             return GetListFromFile();
         }
 
+        /// <summary>
+        /// Returns specific lap.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Lap FindLap(int id)
         {
-            return GetListFromFile().Where(x => x.Driver.DriverId == id).First();
+            return GetListFromFile().First(x => x.Racer.RacerId == id);
         }
 
         private List<Lap> GetListFromFile()
@@ -37,10 +49,10 @@ namespace KartSimulator.Infrastructure
                 var hour = line.Substring(0, nextWhiteSpace);
                 nextLetter = FindNextLetterOrNumber(nextWhiteSpace, line);
                 nextWhiteSpace = FindNextWhiteSpace(nextLetter, line);
-                var driverId = line.Substring(nextLetter, nextWhiteSpace - nextLetter);
+                var racerId = line.Substring(nextLetter, nextWhiteSpace - nextLetter);
                 nextLetter = FindNextLetterOrNumber(nextWhiteSpace, line);
                 nextWhiteSpace = FindNextWhiteSpace(nextLetter, line);
-                var driver = line.Substring(nextLetter, nextWhiteSpace - nextLetter);
+                var racer = line.Substring(nextLetter, nextWhiteSpace - nextLetter);
                 nextLetter = FindNextLetterOrNumber(nextWhiteSpace, line);
                 nextWhiteSpace = FindNextWhiteSpace(nextLetter, line);
                 var roundNumber = line.Substring(nextLetter, nextWhiteSpace - nextLetter);
@@ -49,7 +61,7 @@ namespace KartSimulator.Infrastructure
                 var roundTime = line.Substring(nextLetter, nextWhiteSpace - nextLetter);
                 nextLetter = FindNextLetterOrNumber(nextWhiteSpace, line);
                 var averageSpeed = line.Substring(nextLetter, line.Length - nextLetter);
-                result.Add(new Lap(hour, driverId, driver, roundNumber, roundTime, averageSpeed));
+                result.Add(new Lap(hour, racerId, racer, roundNumber, roundTime, averageSpeed));
             }
             return result;
         }

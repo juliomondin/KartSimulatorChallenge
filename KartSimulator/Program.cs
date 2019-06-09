@@ -1,17 +1,17 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using Domain.Classes;
+﻿using Domain.Classes;
 using KartSimulator.Application;
 using KartSimulator.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace KartSimulator
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             #region DI
+
             var collection = new ServiceCollection();
             collection.AddSingleton<IFileReader, FileReader>();
             collection.AddSingleton<IResultGenerator<Lap>, ResultGenerator>();
@@ -19,7 +19,8 @@ namespace KartSimulator
             collection.AddSingleton<IApplication, Application.Application>();
 
             var serviceProvider = collection.BuildServiceProvider();
-            #endregion
+
+            #endregion DI
 
             var service = serviceProvider.GetService<IRepository<Lap>>();
             var application = serviceProvider.GetService<IApplication>();
@@ -28,7 +29,6 @@ namespace KartSimulator
             var result = new RaceResult(race);
 
             Console.WriteLine(application.GetInitialMenu());
-
 
             var option = Console.ReadLine();
 
@@ -39,18 +39,22 @@ namespace KartSimulator
                     var raceResult = application.GetFinalResult(result.Result, result.Leavers);
                     Console.WriteLine(raceResult);
                     break;
+
                 case "2":
                     var bestLap = race.GetBestLap();
                     Console.WriteLine(application.GetBestLap(bestLap));
                     break;
+
                 case "3":
-                    var bestLaps = race.GetBestLapFromEachDriver();
+                    var bestLaps = race.GetBestLapFromEachRacer();
                     Console.WriteLine(application.GetBestLapFromEachRacer(bestLaps));
                     break;
+
                 case "4":
                     var averageSpeed = result.GetAverageSpeed();
                     Console.WriteLine(application.GetAverageSpeedFromEachRacer(averageSpeed));
                     break;
+
                 case "5":
                 default:
                     var completedAfterFirst = result.GetCompletedTimeAfterFirst();
@@ -59,7 +63,6 @@ namespace KartSimulator
             }
 
             Console.ReadKey();
-
         }
     }
 }

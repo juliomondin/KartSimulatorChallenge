@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace KartSimulator.Infrastructure
 {
+    /// <summary>
+    /// Service that returns the file content.
+    /// </summary>
     public class FileReader : IFileReader
     {
         /// <summary>

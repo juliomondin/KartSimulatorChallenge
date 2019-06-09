@@ -1,33 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Domain.Classes;
+﻿using Domain.Classes;
 using FluentAssertions;
+using System;
 using Xunit;
 
 namespace DomainTests.Classes
 {
-    public class DriverTests
+    public class RacerTests
     {
         [Fact]
         public void Constructor_Returns_Exception_When_Null_Name()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new Driver(0, "Julio"));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new Racer(0, "Julio"));
         }
 
         [Fact]
-        public void Constructor_Returns_Exception_When_DriverId_Is_0()
+        public void Constructor_Returns_Exception_When_RacerId_Is_0()
         {
-            Assert.Throws<ArgumentNullException>(() => new Driver(1, null));
+            Assert.Throws<ArgumentNullException>(() => new Racer(1, null));
         }
 
         [Fact]
-        public void Constructor_Returns_Driver_When_Valid_Parameter_Are_Given()
+        public void Constructor_Returns_Racer_When_Valid_Parameter_Are_Given()
         {
-            var driver = new Driver(1, "Julio");
-            driver.Should().NotBeNull();
-            driver.Name.Should().Be("Julio");
-            driver.DriverId.Should().Be(1);
+            var racer = new Racer(1, "Julio");
+            racer.Should().NotBeNull();
+            racer.Name.Should().Be("Julio");
+            racer.RacerId.Should().Be(1);
         }
     }
 }

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using KartSimulator.Infrastructure;
 using System.IO;
-using System.Text;
-using FluentAssertions;
-using KartSimulator.Infrastructure;
 using Xunit;
 
 namespace KartSimulatorTests.Infrastructure
@@ -22,6 +18,5 @@ namespace KartSimulatorTests.Infrastructure
         //    var result = new FileReader().GetLines(@"FileReader.cs");
         //    result.Should().NotBeNullOrEmpty();
         //}
-
     }
 }

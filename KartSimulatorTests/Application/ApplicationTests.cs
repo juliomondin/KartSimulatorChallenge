@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Domain.Classes;
+﻿using Domain.Classes;
 using FluentAssertions;
-using KartSimulator.Application;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace KartSimulatorTests.Application
@@ -17,8 +15,8 @@ namespace KartSimulatorTests.Application
             var result = app.GetInitialMenu();
             result.Should().NotBeEmpty();
             result.Should().Be("To find the race final result, press 1 \nTo find who made the faster lap, press 2 \n" +
-                               "To find the best lap from each driver, press 3 \nTo find each driver average speed, press 4\n" +
-                               "To find when each driver arrived after the first, press 5\n");
+                               "To find the best lap from each racer, press 3 \nTo find each racer average speed, press 4\n" +
+                               "To find when each racer arrived after the first, press 5\n");
         }
 
         [Fact]
@@ -26,20 +24,19 @@ namespace KartSimulatorTests.Application
         {
             var mockRacers = new List<Position>
             {
-                new Position() {ArrivingPosition = 1, AverageSpeed = 1, Driver = new Driver(1,"julio"), FinalTime = new TimeSpan(1,1,1),NumberOfCompletedLaps = 1},
-                new Position() {ArrivingPosition = 2, AverageSpeed = 2, Driver = new Driver(1,"massa"), FinalTime = new TimeSpan(1,1,1),NumberOfCompletedLaps = 1}
+                new Position() {ArrivingPosition = 1, AverageSpeed = 1, Racer = new Racer(1,"julio"), FinalTime = new TimeSpan(1,1,1),NumberOfCompletedLaps = 1},
+                new Position() {ArrivingPosition = 2, AverageSpeed = 2, Racer = new Racer(1,"massa"), FinalTime = new TimeSpan(1,1,1),NumberOfCompletedLaps = 1}
             };
             var mockLeavers = new List<Position>
             {
                 new Position()
                 {
-                    ArrivingPosition = 1, AverageSpeed = 1, Driver = new Driver(1, "vettel"),
+                    ArrivingPosition = 1, AverageSpeed = 1, Racer = new Racer(1, "vettel"),
                     FinalTime = new TimeSpan(1, 1, 1), NumberOfCompletedLaps = 1
                 },
             };
             var app = new KartSimulator.Application.Application();
             var result = app.GetFinalResult(mockRacers, mockLeavers).Should().NotBeNullOrEmpty();
-
         }
 
         [Fact]
@@ -65,12 +62,12 @@ namespace KartSimulatorTests.Application
         }
 
         [Fact]
-        public void GetAverageSpeedFromEachDriver_Returns_Average_Speed()
+        public void GetAverageSpeedFromEachRacer_Returns_Average_Speed()
         {
             var mockRacers = new List<Position>
             {
-                new Position() {ArrivingPosition = 1, AverageSpeed = 1, Driver = new Driver(1,"julio"), FinalTime = new TimeSpan(1,1,1),NumberOfCompletedLaps = 1},
-                new Position() {ArrivingPosition = 2, AverageSpeed = 2, Driver = new Driver(1,"massa"), FinalTime = new TimeSpan(1,1,1),NumberOfCompletedLaps = 1}
+                new Position() {ArrivingPosition = 1, AverageSpeed = 1, Racer = new Racer(1,"julio"), FinalTime = new TimeSpan(1,1,1),NumberOfCompletedLaps = 1},
+                new Position() {ArrivingPosition = 2, AverageSpeed = 2, Racer = new Racer(1,"massa"), FinalTime = new TimeSpan(1,1,1),NumberOfCompletedLaps = 1}
             };
             var app = new KartSimulator.Application.Application();
             var result = app.GetAverageSpeedFromEachRacer(mockRacers);
@@ -82,13 +79,12 @@ namespace KartSimulatorTests.Application
         {
             var mockRacers = new List<Position>
             {
-                new Position() {ArrivingPosition = 1, AverageSpeed = 1, Driver = new Driver(1,"julio"), FinalTime = new TimeSpan(1,1,1),NumberOfCompletedLaps = 1},
-                new Position() {ArrivingPosition = 2, AverageSpeed = 2, Driver = new Driver(1,"massa"), FinalTime = new TimeSpan(1,1,1),NumberOfCompletedLaps = 1}
+                new Position() {ArrivingPosition = 1, AverageSpeed = 1, Racer = new Racer(1,"julio"), FinalTime = new TimeSpan(1,1,1),NumberOfCompletedLaps = 1},
+                new Position() {ArrivingPosition = 2, AverageSpeed = 2, Racer = new Racer(1,"massa"), FinalTime = new TimeSpan(1,1,1),NumberOfCompletedLaps = 1}
             };
             var app = new KartSimulator.Application.Application();
             var result = app.GetCompletedTimeAfterFirst(mockRacers);
             result.Should().NotBeNullOrEmpty();
         }
-
     }
 }

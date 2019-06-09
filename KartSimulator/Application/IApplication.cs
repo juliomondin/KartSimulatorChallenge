@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Domain.Classes;
 using System.Collections.Generic;
-using System.Text;
-using Domain.Classes;
 
 namespace KartSimulator.Application
 {
+    /// <summary>
+    /// Generates the messages that are going to be shown in the console.
+    /// </summary>
     public interface IApplication
     {
         string GetInitialMenu();
@@ -18,6 +19,5 @@ namespace KartSimulator.Application
         string GetAverageSpeedFromEachRacer(List<Position> positions);
 
         string GetCompletedTimeAfterFirst(List<Position> positions);
-
     }
 }

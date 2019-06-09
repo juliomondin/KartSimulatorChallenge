@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Domain.Classes;
+﻿using Domain.Classes;
 using FluentAssertions;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace DomainTests.Classes
@@ -34,10 +33,10 @@ namespace DomainTests.Classes
             raceResult.GetResult();
             raceResult.Result[0].Should().NotBeNull();
             raceResult.Result[1].Should().NotBeNull();
-            raceResult.Result[0].Driver.Name.Should().Be("testPosition1");
-            raceResult.Result[0].Driver.DriverId.Should().Be(2);
-            raceResult.Result[1].Driver.Name.Should().Be("testPosition2");
-            raceResult.Result[1].Driver.DriverId.Should().Be(1);
+            raceResult.Result[0].Racer.Name.Should().Be("testPosition1");
+            raceResult.Result[0].Racer.RacerId.Should().Be(2);
+            raceResult.Result[1].Racer.Name.Should().Be("testPosition2");
+            raceResult.Result[1].Racer.RacerId.Should().Be(1);
             raceResult.Leavers.Should().BeEmpty();
         }
 
@@ -61,13 +60,13 @@ namespace DomainTests.Classes
             raceResult.GetResult();
             raceResult.Result[0].Should().NotBeNull();
             raceResult.Result[1].Should().NotBeNull();
-            raceResult.Result[0].Driver.Name.Should().Be("testPosition1");
-            raceResult.Result[0].Driver.DriverId.Should().Be(2);
-            raceResult.Result[1].Driver.Name.Should().Be("testPosition2");
-            raceResult.Result[1].Driver.DriverId.Should().Be(1);
+            raceResult.Result[0].Racer.Name.Should().Be("testPosition1");
+            raceResult.Result[0].Racer.RacerId.Should().Be(2);
+            raceResult.Result[1].Racer.Name.Should().Be("testPosition2");
+            raceResult.Result[1].Racer.RacerId.Should().Be(1);
             raceResult.Leavers.Should().NotBeEmpty();
-            raceResult.Leavers[0].Driver.DriverId.Should().Be(3);
-            raceResult.Leavers[0].Driver.Name.Should().Be("testPosition3");
+            raceResult.Leavers[0].Racer.RacerId.Should().Be(3);
+            raceResult.Leavers[0].Racer.Name.Should().Be("testPosition3");
         }
 
         [Fact]
@@ -111,6 +110,5 @@ namespace DomainTests.Classes
             result[1].CompletedAfterFirst.Should().Be(TimeSpan.ParseExact("4:00.000", "m\\:ss\\.fff", null));
             result[0].CompletedAfterFirst.Should().Be(TimeSpan.ParseExact("0:00.000", "m\\:ss\\.fff", null));
         }
-
     }
 }

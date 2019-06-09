@@ -6,7 +6,7 @@ namespace Domain.Classes
     {
         public int ArrivingPosition { get; set; }
 
-        public Driver Driver { get; set; }
+        public Racer Racer { get; set; }
 
         public int NumberOfCompletedLaps { get; set; }
 

@@ -30,7 +30,7 @@ namespace KartSimulatorTests.Infrastructure
         [Fact]
         public void Find_Returns_What_It_Gets_Successfully()
         {
-            var mockReturn = new Lap("12:01:12","1","test","1","1:11.111","1");
+            var mockReturn = new Lap("12:01:12", "1", "test", "1", "1:11.111", "1");
             _mock.FindLap(1).Returns(mockReturn);
             var repository = new Repository<Lap>(_mock);
             repository.Find(1).Should().Be(mockReturn);
