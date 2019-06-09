@@ -25,10 +25,10 @@ namespace KartSimulator
             var result = new RaceResult(race);
 
             Console.WriteLine("To find the race final result, press 1");
-            Console.WriteLine("To find who made the best race's lap, press 2");
-            Console.WriteLine("To find the best lap from which driver, press 3");
+            Console.WriteLine("To find who made the faster lap, press 2");
+            Console.WriteLine("To find the best lap from each driver, press 3");
             Console.WriteLine("To find each driver average speed, press 4");
-            Console.WriteLine("To find when each driver arrived after the winner, press 5");
+            Console.WriteLine("To find when each driver arrived after the first, press 5");
 
 
             var option = Console.ReadLine();
