@@ -31,9 +31,9 @@ namespace KartSimulator.Application
             result.ForEach(x => raceResult +=
                 $"\n Position: {x.ArrivingPosition} / {x.Racer.RacerId} - {x.Racer.Name}   / Finished Laps: {x.NumberOfCompletedLaps}   /    Finished Time: {x.FinalTime}))");
             raceResult += "\n============================================================================\n";
-            raceResult += "The following racers didn't completed the race: \n";
+            raceResult += "The following racers didn't complete the race: \n";
             leavers.ForEach(x => raceResult +=
-                $"\n{x.Racer.RacerId} - {x.Racer.Name}   / Finished Laps: {x.NumberOfCompletedLaps}   /    Finished Time: {x.FinalTime}))"); ;
+                $"\n{x.Racer.RacerId} - {x.Racer.Name}   / Completed Laps: {x.NumberOfCompletedLaps}   /    Finished Time: {x.FinalTime}))"); ;
 
             return raceResult;
         }
